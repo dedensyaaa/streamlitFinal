@@ -20,13 +20,11 @@ df = pd.read_csv('winequality-red.csv')
 st.sidebar.title("Presentation Menu")
 menu = st.sidebar.radio(
     "Select a Section:",
-    ["Overview", "Raw Data", "Data Visualization", "Insights", "Conclusion"]
+    ["Overview", "Data Visualization", "Insights", "Conclusion"]
 )
 
 if menu == "Overview":
     st.title("Wine Quality Prediction")
-    # Data exploration
-    st.header("Data Exploration")
     st.write("### First 5 rows of the dataset:")
     st.write(df.head())
     st.write("### Number of missing values per column:")
@@ -39,26 +37,17 @@ if menu == "Overview":
     st.write(zero_values)
     st.write("### Dataset shape (rows, columns):")
     st.write(df.shape)
-
-
-
-
-
-
-
-
-st.write("### Summary statistics of the 'quality' column:")
-st.write(df['quality'].describe())
-
-# Visualizing data
-st.header("Data Visualization")
-st.subheader("Count of Wine Quality")
-fig, ax = plt.subplots()
-sns.countplot(x='quality', data=df, ax=ax)
-plt.title('Count of Wine Quality')
-st.pyplot(fig)
-
-# Correlation analysis
+    st.write("### Summary statistics of the 'quality' column:")
+    st.write(df['quality'].describe())
+    
+elif menu == "Data Visualization":
+    st.header("Data Visualization")
+    st.subheader("Count of Wine Quality")
+    fig, ax = plt.subplots()
+    sns.countplot(x='quality', data=df, ax=ax)
+    plt.title('Count of Wine Quality')
+    st.pyplot(fig)
+    # Correlation analysis
 st.subheader("Correlation Analysis")
 corr = df.corr()
 idx = corr['quality'].abs().sort_values(ascending=False).index[:5]
@@ -133,3 +122,13 @@ def plot_learning_curves(X, y, model):
 
 fig = plot_learning_curves(selected_columns, quality_column, model)
 st.pyplot(fig)
+
+
+
+
+
+
+
+
+
+
