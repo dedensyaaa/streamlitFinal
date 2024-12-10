@@ -134,6 +134,7 @@ Overall, while the model shows some predictive power, there is still significant
         return fig
     fig = plot_learning_curves(selected_columns, quality_column, model)
     st.pyplot(fig)
+    st.markdown("If you look at the learning curve legend there is a training score and cross validation. Training data is used for training regression model then the test data is used to test performance to see the training score results. The cross validation model is used to predict the quality of validation data, however the chart indicates that both lines are far off because of the difference of model performance from data used to train unseen data. In this case both performance are bad so we can say the data is not enough.")
 
 # Section 4: Insights
 elif menu == "Insights":
