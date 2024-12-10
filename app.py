@@ -112,7 +112,24 @@ elif menu == "Data Visualization":
     fig = plot_learning_curves(selected_columns, quality_column, model)
     st.pyplot(fig)
 
+# Section 4: Insights
+elif menu == "Insights":
+    st.title("Insights")
+    st.markdown("""
+    Key findings from the data:
+    - **Top Performer**: Charlie with a score of 95.
+    - **Age Group with Highest Score**: 35 years.
+    - **Average Score**: 90.
+    """)
 
+# Section 5: Conclusion
+elif menu == "Conclusion":
+    st.title("Conclusion")
+    st.markdown("""
+    - **Summary**: The data reveals trends in performance by age group.
+    - **Next Steps**: Consider additional analysis for deeper insights.
+    Thank you for using this app!
+    """)
 
 
 
