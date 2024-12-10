@@ -46,7 +46,6 @@ elif menu == "Data Visualization":
     fig, ax = plt.subplots(figsize=(20, 10))
     sns.countplot(x='quality', data=df, ax=ax)
     plt.title('Count of Wine Quality')
-    plt.tight_layout()
     st.pyplot(fig)
     st.markdown("The bar graph presents a distribution of wine quality ratings. The y-axis represents the count, indicating the frequency of wines assigned to each quality score. This graph effectively highlights the distribution of wines based on their quality ratings.")
     # Correlation analysis
