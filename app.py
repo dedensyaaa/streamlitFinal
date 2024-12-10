@@ -29,23 +29,23 @@ if menu == "Overview":
     st.header("Data Exploration")
     st.write("### First 5 rows of the dataset:")
     st.write(df.head())
+    st.write("### Number of missing values per column:")
+    st.write(df.isna().sum())
+    st.write("### Number of negative values per column:")
+    negative_values = (df < 0).sum()
+    st.write(negative_values)
+    st.write("### Number of zero values per column:")
+    zero_values = (df == 0).sum()
+    st.write(zero_values)
+    st.write("### Dataset shape (rows, columns):")
+    st.write(df.shape)
 
 
 
 
-st.write("### Number of missing values per column:")
-st.write(df.isna().sum())
 
-st.write("### Number of negative values per column:")
-negative_values = (df < 0).sum()
-st.write(negative_values)
 
-st.write("### Number of zero values per column:")
-zero_values = (df == 0).sum()
-st.write(zero_values)
 
-st.write("### Dataset shape (rows, columns):")
-st.write(df.shape)
 
 st.write("### Summary statistics of the 'quality' column:")
 st.write(df['quality'].describe())
