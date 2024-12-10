@@ -14,6 +14,13 @@ st.set_page_config(page_title="Wine Quality Prediction", layout="wide")
 # Load dataset
 df = pd.read_csv('winequality-red.csv')
 
+# Sidebar menu for navigation
+st.sidebar.title("Presentation Menu")
+menu = st.sidebar.radio(
+    "Select a Section:",
+    ["Overview", "Raw Data", "Data Visualization", "Insights", "Conclusion"]
+)
+
 # Streamlit app layout
 st.title("Wine Quality Prediction")
 
