@@ -14,8 +14,7 @@ st.set_page_config(page_title="Wine Quality Prediction", layout="wide")
 # Load dataset
 df = pd.read_csv('winequality-red.csv')
 
-# Streamlit app layout
-st.title("Wine Quality Prediction")
+
 
 # Sidebar menu for navigation
 st.sidebar.title("Presentation Menu")
@@ -25,20 +24,14 @@ menu = st.sidebar.radio(
 )
 
 if menu == "Overview":
-    st.title("Data Presentation Overview")
-    st.markdown("""
-    Welcome to the data presentation app. Here's what you'll explore:
-    - **Raw Data**: View the original dataset.
-    - **Data Visualization**: Explore charts and graphs for trends.
-    - **Insights**: Key findings and actionable points.
-    - **Conclusion**: Summary and takeaways.
-    """)
+    st.title("Wine Quality Prediction")
+    # Data exploration
+    st.header("Data Exploration")
+    st.write("### First 5 rows of the dataset:")
+    st.write(df.head())
 
 
-# Data exploration
-st.header("Data Exploration")
-st.write("### First 5 rows of the dataset:")
-st.write(df.head())
+
 
 st.write("### Number of missing values per column:")
 st.write(df.isna().sum())
