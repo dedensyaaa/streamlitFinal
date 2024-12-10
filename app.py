@@ -188,9 +188,19 @@ The most important features for determining wine quality were identified as:
 elif menu == "Conclusion":
     st.title("Conclusion")
     st.markdown("""
-    - **Summary**: The data reveals trends in performance by age group.
-    - **Next Steps**: Consider additional analysis for deeper insights.
-    Thank you for using this app!
+    The researchers used a Kaggle dataset on wine quality, consisting of 1,599 samples with 11 features. After training the model using this dataset, it achieved a disappointing 36% accuracy on the training data and 29% accuracy on the validation data, indicating poor predictive performance.
+
+From the evaluation metrics and visualizations:
+
+Mean Squared Error (MSE): The model achieved an MSE of 0.3900, suggesting that while it attempts to approximate the target wine quality ratings, its predictions deviate significantly from the actual values. This indicates room for substantial improvement.
+
+R² Score: The R² score of 0.4032 reveals that the model explains only 40% of the variance in the data, which, while offering some predictive insight, highlights its limitations in capturing the underlying patterns.
+
+Actual vs Predicted: The comparison between actual and predicted values shows notable discrepancies, further emphasizing the model's struggles to generalize effectively.
+
+Learning Curves: The learning curve demonstrates a significant gap between the training and cross-validation scores. Both scores are low, suggesting that the model performs poorly on both the training and validation data. This may indicate insufficient data, suboptimal model selection, or inadequate feature engineering.
+
+Overall, the model provides limited predictive power and fails to generalize well to unseen data. Future efforts should focus on improving data preprocessing, exploring alternative models, and possibly collecting or synthesizing additional data to enhance performance.
     """)
 
 
