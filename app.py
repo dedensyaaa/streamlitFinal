@@ -106,6 +106,19 @@ By visualizing these distributions, the histogram allows for an understanding of
     plt.ylabel('Predicted Quality')
     plt.legend()
     st.pyplot(fig)
+    st.markdown("""
+### Model Training and Evaluation
+
+The model has been trained and evaluated on the wine quality dataset. The evaluation metrics provide insight into the model’s performance:
+
+- **Mean Squared Error (MSE)**: The MSE value is **0.3900**, which measures the average squared difference between the predicted and actual wine quality values. A lower MSE indicates better model performance, but in this case, it suggests that the model has some room for improvement in making accurate predictions.
+
+- **R² Score**: The **R² score** is **0.4032**, which indicates that approximately 40% of the variance in the wine quality data is explained by the model. This suggests that the model provides some useful information but does not fully capture the underlying patterns in the data.
+
+- **Actual vs Predicted**: The graph of **actual vs predicted wine quality** visually compares the true quality ratings with the model's predicted values. This allows for a better understanding of how well the model is performing, highlighting discrepancies where the predictions may differ from the actual values.
+
+Overall, while the model shows some predictive power, there is still significant room for improvement, especially in reducing error and increasing the explained variance in the data.
+""")
     # Learning curves
     st.subheader("Learning Curves")
     def plot_learning_curves(X, y, model):
