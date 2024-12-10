@@ -48,80 +48,69 @@ elif menu == "Data Visualization":
     plt.title('Count of Wine Quality')
     st.pyplot(fig)
     # Correlation analysis
-st.subheader("Correlation Analysis")
-corr = df.corr()
-idx = corr['quality'].abs().sort_values(ascending=False).index[:5]
-idx_features = idx.drop('quality')
-fig, ax = plt.subplots(figsize=(8, 6))
-sns.heatmap(corr.loc[idx, idx], annot=True, cmap='coolwarm', ax=ax)
-plt.title('Heatmap of Top Features Correlated with Quality')
-st.pyplot(fig)
-
-# Histograms for top correlated features
-st.subheader("Histograms of Top Correlated Features")
-fig, ax = plt.subplots(2, 2, figsize=(20, 10))
-for var, axis in zip(idx_features, ax.flatten()):
-    df[var].plot.hist(ax=axis, bins=20, alpha=0.7)
-    axis.set_xlabel(var)
-st.pyplot(fig)
-
-# Splitting dataset
-st.header("Model Training and Evaluation")
-selected_columns = df[['fixed acidity', 'volatile acidity', 'citric acid', 'residual sugar', 
-                       'chlorides', 'free sulfur dioxide', 'total sulfur dioxide', 
-                       'density', 'pH', 'sulphates', 'alcohol']]
-quality_column = df[['quality']]
-X_train, X_test, y_train, y_test = train_test_split(selected_columns, quality_column, test_size=0.2, random_state=42)
-
-# Scaling features
-scaler = StandardScaler()
-X_train = scaler.fit_transform(X_train)
-X_test = scaler.transform(X_test)
-
-# Model training
-model = LinearRegression()
-model.fit(X_train, y_train)
-
-# Predictions
-y_pred = model.predict(X_test)
-
-# Evaluating the model
-mse = mean_squared_error(y_test, y_pred)
-r2 = r2_score(y_test, y_pred)
-
-st.write(f"### Mean Squared Error: {mse:.4f}")
-st.write(f"### R² Score: {r2:.4f}")
-
-# Visualization of actual vs predicted
-st.subheader("Actual vs Predicted")
-fig, ax = plt.subplots(figsize=(8, 6))
-ax.scatter(y_test, y_pred, color='blue', label='Predicted vs Actual')
-ax.plot([y_test.min(), y_test.max()], [y_test.min(), y_test.max()], color='red', lw=2, label='Perfect Prediction')
-plt.title('Wine Quality: Actual vs Predicted')
-plt.xlabel('Actual Quality')
-plt.ylabel('Predicted Quality')
-plt.legend()
-st.pyplot(fig)
-
-# Learning curves
-st.subheader("Learning Curves")
-
-def plot_learning_curves(X, y, model):
-    train_sizes, train_scores, cv_scores = learning_curve(model, X, y, cv=5, scoring='r2', n_jobs=-1)
-    train_scores_mean = np.mean(train_scores, axis=1)
-    cv_scores_mean = np.mean(cv_scores, axis=1)
-    fig, ax = plt.subplots(figsize=(10, 6))
-    ax.plot(train_sizes, train_scores_mean, label='Training score', color='blue')
-    ax.plot(train_sizes, cv_scores_mean, label='Cross-validation score', color='red')
-    plt.xlabel('Training Size')
-    plt.ylabel('R² Score')
-    plt.title('Learning Curves (Wine Quality Model)')
-    plt.legend(loc='best')
-    plt.grid(True)
-    return fig
-
-fig = plot_learning_curves(selected_columns, quality_column, model)
-st.pyplot(fig)
+    st.subheader("Correlation Analysis")
+    corr = df.corr()
+    idx = corr['quality'].abs().sort_values(ascending=False).index[:5]
+    idx_features = idx.drop('quality')
+    fig, ax = plt.subplots(figsize=(8, 6))
+    sns.heatmap(corr.loc[idx, idx], annot=True, cmap='coolwarm', ax=ax)
+    plt.title('Heatmap of Top Features Correlated with Quality')
+    st.pyplot(fig)
+    # Histograms for top correlated features
+    st.subheader("Histograms of Top Correlated Features")
+    fig, ax = plt.subplots(2, 2, figsize=(20, 10))
+    for var, axis in zip(idx_features, ax.flatten()):
+        df[var].plot.hist(ax=axis, bins=20, alpha=0.7)
+        axis.set_xlabel(var)
+    st.pyplot(fig)
+    # Splitting dataset
+    st.header("Model Training and Evaluation")
+    selected_columns = df[['fixed acidity', 'volatile acidity', 'citric acid', 'residual sugar', 
+                           'chlorides', 'free sulfur dioxide', 'total sulfur dioxide', 
+                           'density', 'pH', 'sulphates', 'alcohol']]
+    quality_column = df[['quality']]
+    X_train, X_test, y_train, y_test = train_test_split(selected_columns, quality_column, test_size=0.2, random_state=42)
+    # Scaling features
+    scaler = StandardScaler()
+    X_train = scaler.fit_transform(X_train)
+    X_test = scaler.transform(X_test)
+    # Model training
+    model = LinearRegression()
+    model.fit(X_train, y_train)
+    # Predictions
+    y_pred = model.predict(X_test)
+    # Evaluating the model
+    mse = mean_squared_error(y_test, y_pred)
+    r2 = r2_score(y_test, y_pred)
+    st.write(f"### Mean Squared Error: {mse:.4f}")
+    st.write(f"### R² Score: {r2:.4f}")
+    # Visualization of actual vs predicted
+    st.subheader("Actual vs Predicted")
+    fig, ax = plt.subplots(figsize=(8, 6))
+    ax.scatter(y_test, y_pred, color='blue', label='Predicted vs Actual')
+    ax.plot([y_test.min(), y_test.max()], [y_test.min(), y_test.max()], color='red', lw=2, label='Perfect Prediction')
+    plt.title('Wine Quality: Actual vs Predicted')
+    plt.xlabel('Actual Quality')
+    plt.ylabel('Predicted Quality')
+    plt.legend()
+    st.pyplot(fig)
+    # Learning curves
+    st.subheader("Learning Curves")
+    def plot_learning_curves(X, y, model):
+        train_sizes, train_scores, cv_scores = learning_curve(model, X, y, cv=5, scoring='r2', n_jobs=-1)
+        train_scores_mean = np.mean(train_scores, axis=1)
+        cv_scores_mean = np.mean(cv_scores, axis=1)
+        fig, ax = plt.subplots(figsize=(10, 6))
+        ax.plot(train_sizes, train_scores_mean, label='Training score', color='blue')
+        ax.plot(train_sizes, cv_scores_mean, label='Cross-validation score', color='red')
+        plt.xlabel('Training Size')
+        plt.ylabel('R² Score')
+        plt.title('Learning Curves (Wine Quality Model)')
+        plt.legend(loc='best')
+        plt.grid(True)
+        return fig
+    fig = plot_learning_curves(selected_columns, quality_column, model)
+    st.pyplot(fig)
 
 
 
