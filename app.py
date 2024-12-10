@@ -43,7 +43,7 @@ if menu == "Overview":
 elif menu == "Data Visualization":
     st.header("Data Visualization")
     st.subheader("Count of Wine Quality")
-    fig, ax = plt.subplots(figsize=(6, 3))
+    fig, ax = plt.subplots(figsize=(3, 1))
     sns.countplot(x='quality', data=df, ax=ax)
     plt.title('Count of Wine Quality')
     st.pyplot(fig)
