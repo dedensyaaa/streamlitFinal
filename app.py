@@ -159,7 +159,23 @@ The most important features for determining wine quality were identified as:
 3. **Alcohol Content**: Higher alcohol levels are strongly associated with better quality.
 4. **Fixed Acidity**: Contributes to the wine's balance and tartness.
 5. **pH**: Reflects acidity levels, with high-quality wines showing slightly lower pH.
+                
+### Top Features for Different Quality Levels:
+""")
 
+# Data for the table
+    data = {
+        "Feature": ["Total Sulfur Dioxide", "Free Sulfur Dioxide", "Alcohol", "Fixed Acidity", "pH"],
+        "Low Quality (Mean)": [24.900, 11.000, 9.955, 8.360, 3.398],
+        "Mid Quality (Mean)": [46.754, 15.936, 10.407, 8.317, 3.311],
+        "High Quality (Mean)": [33.444, 13.278, 12.094, 8.567, 3.267]
+    }
+    table_df = pd.DataFrame(data)
+
+    # Display the table
+    st.table(table_df)
+
+    st.markdown("""
 ### Outliers and Distribution of Features:
 - **Volatile Acidity** and **Residual Sugar** might exhibit outliers. High volatile acidity can make wines taste vinegary or unpleasant, which may result in lower quality ratings. Wines with unusually high residual sugar may not align with the general preference for dry wines, affecting quality ratings.
 
