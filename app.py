@@ -57,6 +57,7 @@ elif menu == "Data Visualization":
     sns.heatmap(corr.loc[idx, idx], annot=True, cmap='coolwarm', ax=ax)
     plt.title('Heatmap of Top Features Correlated with Quality')
     st.pyplot(fig)
+    st.markdown("The heatmap provides a visual representation of the correlation between various chemical properties of wine and its quality. It uses color gradients to illustrate how these variables correlate with one another. Darker colors indicate stronger correlations, whether positive or negative, while lighter colors represent weaker correlations. This visualization helps identify which factors, such as acidity, sulfur dioxide, and alcohol content, are most strongly associated with wine quality, offering valuable insights into the relationships within the data.")
     # Histograms for top correlated features
     st.subheader("Histograms of Top Correlated Features")
     fig, ax = plt.subplots(2, 2, figsize=(20, 10))
