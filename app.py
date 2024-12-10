@@ -65,12 +65,16 @@ elif menu == "Data Visualization":
         df[var].plot.hist(ax=axis, bins=20, alpha=0.7)
         axis.set_xlabel(var)
     st.pyplot(fig)
-    st.markdown("The histogram provides a graphical representation of the distribution of several key chemical properties in the wine dataset: alcohol, volatile acidity, sulphates, and citric acid. Each variable is plotted on the x-axis, with the y-axis representing the frequency or count of wines that fall within specific value ranges for each property.
-            Alcohol: The histogram shows how the alcohol content in the wines is distributed, providing insights into the most common alcohol levels in the dataset.
-            Volatile Acidity: This variable’s histogram reveals the distribution of acetic acid in the wines, which can affect the flavor, with certain levels indicating a more sour or vinegary taste.
-            Sulphates: The distribution of sulphate content is shown, which plays a role in preserving the wine and impacting its flavor profile.
-            Citric Acid: The histogram for citric acid illustrates how the acidity levels vary across wines, contributing to the overall taste and balance of the wine.
-        By visualizing these distributions, the histogram allows for an understanding of the variation in these key chemical components, helping to identify trends, outliers, or skewed data points in the dataset.")
+    st.markdown("""
+The histogram provides a graphical representation of the distribution of several key chemical properties in the wine dataset: alcohol, volatile acidity, sulphates, and citric acid. Each variable is plotted on the x-axis, with the y-axis representing the frequency or count of wines that fall within specific value ranges for each property.
+
+- **Alcohol**: The histogram shows how the alcohol content in the wines is distributed, providing insights into the most common alcohol levels in the dataset.
+- **Volatile Acidity**: This variable’s histogram reveals the distribution of acetic acid in the wines, which can affect the flavor, with certain levels indicating a more sour or vinegary taste.
+- **Sulphates**: The distribution of sulphate content is shown, which plays a role in preserving the wine and impacting its flavor profile.
+- **Citric Acid**: The histogram for citric acid illustrates how the acidity levels vary across wines, contributing to the overall taste and balance of the wine.
+
+By visualizing these distributions, the histogram allows for an understanding of the variation in these key chemical components, helping to identify trends, outliers, or skewed data points in the dataset.
+""")
     # Splitting dataset
     st.header("Model Training and Evaluation")
     selected_columns = df[['fixed acidity', 'volatile acidity', 'citric acid', 'residual sugar', 
