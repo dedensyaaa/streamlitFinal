@@ -1,3 +1,4 @@
+import streamlit as st
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -7,64 +8,69 @@ from sklearn.linear_model import LinearRegression
 from sklearn.preprocessing import StandardScaler
 from sklearn.metrics import mean_squared_error, r2_score
 
+# Set the page configuration
+st.set_page_config(page_title="Wine Quality Prediction", layout="wide")
+
 # Load dataset
 df = pd.read_csv('winequality-red.csv')
 
+# Streamlit app layout
+st.title("Wine Quality Prediction")
+
 # Data exploration
-print("First 5 rows of the dataset:")
-print(df.head())
+st.header("Data Exploration")
+st.write("### First 5 rows of the dataset:")
+st.write(df.head())
 
-print("\nNumber of missing values per column:")
-print(df.isna().sum())
+st.write("### Number of missing values per column:")
+st.write(df.isna().sum())
 
-print("\nNumber of negative values per column:")
+st.write("### Number of negative values per column:")
 negative_values = (df < 0).sum()
-print(negative_values)
+st.write(negative_values)
 
-print("\nNumber of zero values per column:")
+st.write("### Number of zero values per column:")
 zero_values = (df == 0).sum()
-print(zero_values)
+st.write(zero_values)
 
-print("\nDataset shape (rows, columns):")
-print(df.shape)
+st.write("### Dataset shape (rows, columns):")
+st.write(df.shape)
 
-print("\nSummary statistics of the 'quality' column:")
-print(df['quality'].describe())
+st.write("### Summary statistics of the 'quality' column:")
+st.write(df['quality'].describe())
 
-# Selecting relevant columns
+# Visualizing data
+st.header("Data Visualization")
+st.subheader("Count of Wine Quality")
+fig, ax = plt.subplots()
+sns.countplot(x='quality', data=df, ax=ax)
+plt.title('Count of Wine Quality')
+st.pyplot(fig)
+
+# Correlation analysis
+st.subheader("Correlation Analysis")
+corr = df.corr()
+idx = corr['quality'].abs().sort_values(ascending=False).index[:5]
+idx_features = idx.drop('quality')
+fig, ax = plt.subplots(figsize=(8, 6))
+sns.heatmap(corr.loc[idx, idx], annot=True, cmap='coolwarm', ax=ax)
+plt.title('Heatmap of Top Features Correlated with Quality')
+st.pyplot(fig)
+
+# Histograms for top correlated features
+st.subheader("Histograms of Top Correlated Features")
+fig, ax = plt.subplots(2, 2, figsize=(20, 10))
+for var, axis in zip(idx_features, ax.flatten()):
+    df[var].plot.hist(ax=axis, bins=20, alpha=0.7)
+    axis.set_xlabel(var)
+st.pyplot(fig)
+
+# Splitting dataset
+st.header("Model Training and Evaluation")
 selected_columns = df[['fixed acidity', 'volatile acidity', 'citric acid', 'residual sugar', 
                        'chlorides', 'free sulfur dioxide', 'total sulfur dioxide', 
                        'density', 'pH', 'sulphates', 'alcohol']]
 quality_column = df[['quality']]
-
-# Visualizing data
-sns.countplot(x='quality', data=df)
-plt.title('Count of Wine Quality')
-plt.show()
-
-# Correlation analysis
-corr = df.corr()
-idx = corr['quality'].abs().sort_values(ascending=False).index[:5]
-idx_features = idx.drop('quality')
-sns.heatmap(corr.loc[idx, idx], annot=True, cmap='coolwarm')
-plt.title('Heatmap of Top Features Correlated with Quality')
-plt.show()
-
-# Histograms and boxplots for top correlated features
-_, ax = plt.subplots(2, 2, figsize=(20, 10))
-for var, axis in zip(idx_features, ax.flatten()):
-    df[var].plot.hist(ax=axis, bins=20, alpha=0.7)
-    axis.set_xlabel(var)
-plt.tight_layout()
-plt.show()
-
-_, ax = plt.subplots(2, 2, figsize=(20, 10))
-for i, var in enumerate(idx_features):
-    sns.boxplot(x='quality', y=var, data=df, ax=ax.flatten()[i])
-plt.tight_layout()
-plt.show()
-
-# Splitting dataset
 X_train, X_test, y_train, y_test = train_test_split(selected_columns, quality_column, test_size=0.2, random_state=42)
 
 # Scaling features
@@ -83,32 +89,36 @@ y_pred = model.predict(X_test)
 mse = mean_squared_error(y_test, y_pred)
 r2 = r2_score(y_test, y_pred)
 
-print(f"Mean Squared Error: {mse:.4f}")
-print(f"R² Score: {r2:.4f}")
+st.write(f"### Mean Squared Error: {mse:.4f}")
+st.write(f"### R² Score: {r2:.4f}")
 
 # Visualization of actual vs predicted
-plt.figure(figsize=(8, 6))
-plt.scatter(y_test, y_pred, color='blue', label='Predicted vs Actual')
-plt.plot([y_test.min(), y_test.max()], [y_test.min(), y_test.max()], color='red', lw=2, label='Perfect Prediction')
+st.subheader("Actual vs Predicted")
+fig, ax = plt.subplots(figsize=(8, 6))
+ax.scatter(y_test, y_pred, color='blue', label='Predicted vs Actual')
+ax.plot([y_test.min(), y_test.max()], [y_test.min(), y_test.max()], color='red', lw=2, label='Perfect Prediction')
 plt.title('Wine Quality: Actual vs Predicted')
 plt.xlabel('Actual Quality')
 plt.ylabel('Predicted Quality')
 plt.legend()
-plt.show()
+st.pyplot(fig)
 
-# Plotting learning curves
+# Learning curves
+st.subheader("Learning Curves")
+
 def plot_learning_curves(X, y, model):
     train_sizes, train_scores, cv_scores = learning_curve(model, X, y, cv=5, scoring='r2', n_jobs=-1)
     train_scores_mean = np.mean(train_scores, axis=1)
     cv_scores_mean = np.mean(cv_scores, axis=1)
-    plt.figure(figsize=(10, 6))
-    plt.plot(train_sizes, train_scores_mean, label='Training score', color='blue')
-    plt.plot(train_sizes, cv_scores_mean, label='Cross-validation score', color='red')
+    fig, ax = plt.subplots(figsize=(10, 6))
+    ax.plot(train_sizes, train_scores_mean, label='Training score', color='blue')
+    ax.plot(train_sizes, cv_scores_mean, label='Cross-validation score', color='red')
     plt.xlabel('Training Size')
     plt.ylabel('R² Score')
     plt.title('Learning Curves (Wine Quality Model)')
     plt.legend(loc='best')
     plt.grid(True)
-    plt.show()
+    return fig
 
-plot_learning_curves(selected_columns, quality_column, model)
+fig = plot_learning_curves(selected_columns, quality_column, model)
+st.pyplot(fig)
