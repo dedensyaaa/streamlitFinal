@@ -140,10 +140,23 @@ elif menu == "Insights":
     st.title("Insights")
     st.markdown("""
     Key findings from the data:
-    - **Top Performer**: Charlie with a score of 95.
-    - **Age Group with Highest Score**: 35 years.
-    - **Average Score**: 90.
-    """)
+### Distribution of Wine Quality Ratings:
+- The dataset contains wine quality ratings typically ranging from 0 to 10, with the majority of wines having a quality score between **5 and 6**. This suggests that most of the wines in the dataset are of average to good quality, with fewer wines rated as excellent or poor quality.
+
+### Correlation Between Features and Quality:
+- **Alcohol Content**: Alcohol content is often positively correlated with wine quality, with higher alcohol wines typically receiving higher quality ratings. This can indicate that wine with higher alcohol levels tends to be better regarded.
+- **Fixed Acidity**: Wines with moderate acidity levels tend to have a better quality score, as excessive acidity or too little can negatively affect the taste.
+- **pH**: pH levels, which are a measure of acidity, also have a strong influence on wine quality. Extreme values of pH (either too low or too high) can result in a poor-tasting wine.
+- **Sulfur Dioxide**: Both free and total sulfur dioxide are used as preservatives in wine, but excessive amounts may negatively affect wine quality. A balance between too much and too little sulfur dioxide is likely crucial for achieving better quality wines.
+- **Citric Acid**: Wines with moderate levels of citric acid might have more freshness and balance, which could contribute to higher quality ratings.
+- **Residual Sugar**: Wines with high residual sugar can sometimes be perceived as sweeter, which might appeal to some consumers. However, excessive sugar could lead to lower quality ratings in dry wine categories.
+
+### Outliers and Distribution of Features:
+- **Volatile Acidity** and **Residual Sugar** might exhibit outliers. High volatile acidity can make wines taste vinegary or unpleasant, which may result in lower quality ratings. Wines with unusually high residual sugar may not align with the general preference for dry wines, affecting quality ratings.
+
+### Impact of Winemaking Process:
+- The chemical composition of wine, represented by features such as sulfur dioxide levels, residual sugar, and alcohol content, can give insights into winemaking processes. These features reflect aspects like fermentation methods, aging conditions, and grape varieties, which all influence the final quality of the wine.
+""")
 
 # Section 5: Conclusion
 elif menu == "Conclusion":
