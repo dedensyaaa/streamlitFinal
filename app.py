@@ -42,10 +42,10 @@ if menu == "Overview":
     
 elif menu == "Data Visualization":
     st.header("Data Visualization")
-    st.subheader("Count of Wine Quality")
+    st.subheader("Count of Wine Quality", fontsize=8)
     fig, ax = plt.subplots(figsize=(10, 5))
     sns.countplot(x='quality', data=df, ax=ax)
-    plt.title('Count of Wine Quality', fontsize=10)
+    plt.title('Count of Wine Quality', fontsize=8)
     plt.tight_layout()
     st.pyplot(fig)
     # Correlation analysis
