@@ -48,7 +48,9 @@ elif menu == "Data Visualization":
     plt.title('Count of Wine Quality')
     plt.tight_layout()
     st.pyplot(fig)
-    st.write("The bar graph presents a distribution of wine quality ratings. The y-axis represents the count, indicating the frequency of wines assigned to each quality score. This graph effectively highlights the distribution of wines based on their quality ratings.")
+    st.markdown("""
+    <h3 style='font-size: 18px;'>The bar graph presents a distribution of wine quality ratings. The y-axis represents the count, indicating the frequency of wines assigned to each quality score. This graph effectively highlights the distribution of wines based on their quality ratings.</h3>
+""")
     # Correlation analysis
     st.subheader("Correlation Analysis")
     corr = df.corr()
