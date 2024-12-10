@@ -107,8 +107,6 @@ By visualizing these distributions, the histogram allows for an understanding of
     plt.legend()
     st.pyplot(fig)
     st.markdown("""
-### Model Training and Evaluation
-
 The model has been trained and evaluated on the wine quality dataset. The evaluation metrics provide insight into the model’s performance:
 
 - **Mean Squared Error (MSE)**: The MSE value is **0.3900**, which measures the average squared difference between the predicted and actual wine quality values. A lower MSE indicates better model performance, but in this case, it suggests that the model has some room for improvement in making accurate predictions.
