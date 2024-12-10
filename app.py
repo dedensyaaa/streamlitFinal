@@ -17,6 +17,13 @@ df = pd.read_csv('winequality-red.csv')
 # Streamlit app layout
 st.title("Wine Quality Prediction")
 
+# Sidebar menu for navigation
+st.sidebar.title("Presentation Menu")
+menu = st.sidebar.radio(
+    "Select a Section:",
+    ["Overview", "Raw Data", "Data Visualization", "Insights", "Conclusion"]
+)
+
 # Data exploration
 st.header("Data Exploration")
 st.write("### First 5 rows of the dataset:")
